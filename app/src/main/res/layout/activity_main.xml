@@ -36,4 +36,180 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="32dp" />
 
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|end"
+        android:text="0"
+        android:textSize="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideEast"
+        app:layout_constraintStart_toStartOf="@+id/guideWest"
+        app:layout_constraintTop_toTopOf="@+id/guideNorth" />
+
+    <Button
+        android:id="@+id/btn8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btn8"
+        android:text="8"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn7"
+        app:layout_constraintEnd_toStartOf="@+id/btn9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn7"
+        app:layout_constraintTop_toTopOf="@+id/btn7" />
+
+    <Button
+        android:id="@+id/btn7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:tag="btn7"
+        android:text="7"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn4"
+        app:layout_constraintEnd_toStartOf="@+id/btn8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/guideWest"
+        app:layout_constraintTop_toBottomOf="@+id/output"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:tag="btn4"
+        android:text="4"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideSouth"
+        app:layout_constraintEnd_toStartOf="@+id/btn5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/guideWest"
+        app:layout_constraintTop_toBottomOf="@+id/btn7" />
+
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btn5"
+        android:text="5"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn4"
+        app:layout_constraintEnd_toStartOf="@+id/btn6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn4"
+        app:layout_constraintTop_toTopOf="@+id/btn4" />
+
+    <Button
+        android:id="@+id/btn6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btn6"
+        android:text="6"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn5"
+        app:layout_constraintEnd_toStartOf="@+id/btnDiv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn5"
+        app:layout_constraintTop_toTopOf="@+id/btn5" />
+
+    <Button
+        android:id="@+id/btnDiv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btnDiv"
+        android:text="\u00F7"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn6"
+        app:layout_constraintEnd_toStartOf="@+id/btnPrc"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn6"
+        app:layout_constraintTop_toTopOf="@+id/btn6" />
+
+    <Button
+        android:id="@+id/btnPrc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btnPrc"
+        android:text="\u0025"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDiv"
+        app:layout_constraintEnd_toStartOf="@+id/guideEast"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btnDiv"
+        app:layout_constraintTop_toTopOf="@+id/btnDiv" />
+
+    <Button
+        android:id="@+id/btnSqrt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btnSqrt"
+        android:text="\u221A"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn9"
+        app:layout_constraintEnd_toStartOf="@+id/btnC"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn9"
+        app:layout_constraintTop_toTopOf="@+id/btn9" />
+
+    <Button
+        android:id="@+id/btnC"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btnC"
+        android:text="C"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSqrt"
+        app:layout_constraintEnd_toStartOf="@+id/guideEast"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSqrt"
+        app:layout_constraintTop_toTopOf="@+id/btnSqrt" />
+
+    <Button
+        android:id="@+id/btn9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="btn9"
+        android:text="9"
+        android:textSize="24dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn8"
+        app:layout_constraintEnd_toStartOf="@+id/btnSqrt"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn8"
+        app:layout_constraintTop_toTopOf="@+id/btn8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
