@@ -2,17 +2,15 @@ package edu.jsu.mcis.cs408.calculator;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-
-import java.util.ArrayList;
 
 import edu.jsu.mcis.cs408.calculator.databinding.ActivityMainBinding;
 
@@ -31,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         initLayout();
-
-        //addListenersToButtons();
-
     }
 
     private void initLayout() {
@@ -43,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
         tv.setId(textViewId); // assign ID
         tv.setTag("output"); // assign tag (for acquiring references later)
         tv.setText("0"); // set text (using a string resource)
-        tv.setTextSize(24); // set size
+        tv.setTextSize(34); // set size
+        tv.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
+
+        layout.addView(tv); // add to layout
 
         ViewGroup.LayoutParams params = tv.getLayoutParams();
         params.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
         params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
         tv.setLayoutParams(params);
-
-        layout.addView(tv); // add to layout
 
         int KEYS_HEIGHT = 4;
         int KEYS_WIDTH = 5;
@@ -77,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 horizontals[i][j] = id;
                 verticals[j][i] = id;
 
+                ViewGroup.LayoutParams p = b.getLayoutParams();
+                p.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
+                p.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
+                b.setLayoutParams(p);
+
                     b.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -95,16 +96,18 @@ public class MainActivity extends AppCompatActivity {
         ConstraintSet set = new ConstraintSet();
         set.clone(layout);
 
-
-        set.connect(textViewId, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
+        set.connect(textViewId, ConstraintSet.TOP, binding.guideNorth.getId(), ConstraintSet.BOTTOM);
+        set.connect(textViewId, ConstraintSet.START, binding.guideWest.getId(), ConstraintSet.END);
+        set.connect(textViewId, ConstraintSet.END, binding.guideEast.getId(), ConstraintSet.START);
 
         for (int i = 0; i < verticals.length; i++) {
-            set.createVerticalChain(ConstraintSet.PARENT_ID, ConstraintSet.TOP, ConstraintSet.PARENT_ID,
-                    ConstraintSet.BOTTOM, verticals[i], null, ConstraintSet.CHAIN_PACKED);
+            set.createVerticalChain(textViewId, ConstraintSet.BOTTOM,  binding.guideSouth.getId(), ConstraintSet.TOP,
+                    verticals[i], null, ConstraintSet.CHAIN_PACKED
+            );
         }
 
         for (int i = 0; i < horizontals.length; i++) {
-            set.createHorizontalChain(ConstraintSet.PARENT_ID, ConstraintSet.LEFT, ConstraintSet.PARENT_ID,
+            set.createHorizontalChain(binding.guideWest.getId(), ConstraintSet.LEFT, binding.guideEast.getId(),
                     ConstraintSet.RIGHT, horizontals[i], null, ConstraintSet.CHAIN_PACKED);
         }
 
