@@ -1,11 +1,16 @@
 package edu.jsu.mcis.cs408.calculator;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 
@@ -14,57 +19,96 @@ import edu.jsu.mcis.cs408.calculator.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ArrayList<Button> buttons = new ArrayList<>();
+    private ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        layout = binding.main;
+
         setContentView(view);
 
-        addListenersToButtons();
+        initLayout();
 
-
+        //addListenersToButtons();
 
     }
 
-    private void addListenersToButtons() {
+    private void initLayout() {
 
-        buttons.add(binding.btn0);
-        buttons.add(binding.btn1);
-        buttons.add(binding.btn2);
-        buttons.add(binding.btn3);
-        buttons.add(binding.btn4);
-        buttons.add(binding.btn5);
-        buttons.add(binding.btn6);
-        buttons.add(binding.btn7);
-        buttons.add(binding.btn8);
-        buttons.add(binding.btn9);
-        buttons.add(binding.btnPlusSub);
-        buttons.add(binding.btnDec);
-        buttons.add(binding.btnPlus);
-        buttons.add(binding.btnEqual);
-        buttons.add(binding.btnMult);
-        buttons.add(binding.btnSub);
-        buttons.add(binding.btnDiv);
-        buttons.add(binding.btnPrc);
-        buttons.add(binding.btnSqrt);
-        buttons.add(binding.btnClr);
+        int textViewId = View.generateViewId(); // generate new ID
+        TextView tv = new TextView(this); // create new TextView
+        tv.setId(textViewId); // assign ID
+        tv.setTag("output"); // assign tag (for acquiring references later)
+        tv.setText("0"); // set text (using a string resource)
+        tv.setTextSize(24); // set size
 
-        for(Button btn : buttons) {
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String msg = getMessageFromButtonTag(view.getTag().toString());
+        ViewGroup.LayoutParams params = tv.getLayoutParams();
+        params.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
+        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        tv.setLayoutParams(params);
 
-                    if(msg == null) return;
+        layout.addView(tv); // add to layout
 
-                    Toast toast = Toast.makeText(binding.getRoot().getContext(), msg, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            });
+        int KEYS_HEIGHT = 4;
+        int KEYS_WIDTH = 5;
+
+        int[][] horizontals = new int[KEYS_HEIGHT][KEYS_WIDTH];
+        int[][] verticals = new int[KEYS_WIDTH][KEYS_HEIGHT];
+
+        String[] btnStrings = getResources().getStringArray(R.array.buttons);
+        String[] buttonTags = getResources().getStringArray(R.array.buttonTags);
+
+        for (int i = 0; i < KEYS_HEIGHT; i++) {
+            for (int j = 0; j < KEYS_WIDTH; j++) {
+                int idx = i * KEYS_WIDTH + j;
+                String string = btnStrings[idx];
+                Log.i("MainActivity" ,string);
+                int id = View.generateViewId(); // generate new ID
+                Button b = new Button(this); // create new TextView
+                b.setId(id); // assign ID
+                b.setTag(buttonTags[idx]);
+                b.setText(string); // set text (using a string resource)
+                b.setTextSize(24); // set size
+                layout.addView(b); // add to layout
+
+                horizontals[i][j] = id;
+                verticals[j][i] = id;
+
+                    b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String msg = getMessageFromButtonTag(view.getTag().toString());
+
+                            if (msg == null) return;
+
+                            Toast toast = Toast.makeText(binding.getRoot().getContext(), msg, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+
+            }
         }
+
+        ConstraintSet set = new ConstraintSet();
+        set.clone(layout);
+
+
+        set.connect(textViewId, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
+
+        for (int i = 0; i < verticals.length; i++) {
+            set.createVerticalChain(ConstraintSet.PARENT_ID, ConstraintSet.TOP, ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM, verticals[i], null, ConstraintSet.CHAIN_PACKED);
+        }
+
+        for (int i = 0; i < horizontals.length; i++) {
+            set.createHorizontalChain(ConstraintSet.PARENT_ID, ConstraintSet.LEFT, ConstraintSet.PARENT_ID,
+                    ConstraintSet.RIGHT, horizontals[i], null, ConstraintSet.CHAIN_PACKED);
+        }
+
+        set.applyTo(layout);
     }
 
     private String getMessageFromButtonTag(String str) {
