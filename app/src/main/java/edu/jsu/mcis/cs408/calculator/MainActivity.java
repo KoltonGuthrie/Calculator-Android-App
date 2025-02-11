@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ArrayList<Button> buttons = new ArrayList<>();
     private CalculatorState state = CalculatorState.LEFT;
-    private StringBuffer equation = new StringBuffer();
     private StringBuffer output = new StringBuffer();
     private BigDecimal leftValue = null;
     private BigDecimal rightValue = null;
@@ -32,13 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         addListenersToButtons();
-
-
-
     }
 
     private void addListenersToButtons() {
-
         CalculatorClickHandler click = new CalculatorClickHandler();
 
         for (int i = 0; i < binding.main.getChildCount(); ++i) {
@@ -63,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        if(state.equals(CalculatorState.LEFT) && leftValue != null) {
+            clear();
+        }
+
         output.append(s);
         updateOutput();
     }
@@ -71,17 +70,22 @@ public class MainActivity extends AppCompatActivity {
         binding.output.setText(output.toString());
     }
 
-    private void updateEquation() {
-        binding.equation.setText(equation.toString());
+    private void updateEquation(boolean b) {
+        String lv, rv, op, eq;
+        lv = leftValue != null ? leftValue.toString() : "";
+        rv = rightValue != null ? rightValue.toString() : "";
+        op = operator != null ? operator.toString() : "";
+        eq = b ? CalculatorOperator.EQUAL.toString() : "";
+        binding.equation.setText(String.format("%s %s %s %s", lv, op, rv, eq));
     }
 
     private void submitOperator(CalculatorOperator oper) {
-        if(oper.equals(CalculatorOperator.CLEAR)) {
-            if(swapState(CalculatorState.LEFT)) {
+        Log.i("MainActivity", "CURRENT STATE: " + state.toString());
+        if (oper.equals(CalculatorOperator.CLEAR)) {
+            if (swapState(CalculatorState.LEFT)) {
                 clear();
             }
-        }
-        else if(oper.equals(CalculatorOperator.SWAP_SIGN)) {
+        } else if (oper.equals(CalculatorOperator.SWAP_SIGN)) {
             if (output.length() <= 0 || output.charAt(0) == '0') {
                 return;
             }
@@ -93,53 +97,95 @@ public class MainActivity extends AppCompatActivity {
             }
             updateOutput();
         }
-        /*
-        Does not work atm. The equation text will need to be dynamically created using the leftValue, operator, and rightValue.
-        This is because if an equation such as 3 + 4 is completed, the output is 7.
-        However, if the equals is clicked any following time, the leftValue needs to be replaced with the output of the first equation
-         */
-        else if(oper.equals(CalculatorOperator.EQUAL)) {
-            if(output.length() <= 0 || output.charAt(0) == '0') {
+        else if (oper.equals(CalculatorOperator.EQUAL)) {
+            if(output.length() > 0 && output.charAt(output.length()-1) == '.') {
+                output.append(0);
+            }
+            if (rightValue != null && leftValue != null) {
+                if(output.length() > 0) {
+                    leftValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
+                } else {
+                    leftValue = new BigDecimal(0);
+                }
+            }
+            if(state.equals(CalculatorState.RIGHT)) {
+                if(output.length() > 0) {
+                    rightValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
+                } else {
+                    rightValue = new BigDecimal(0);
+                }
+            }
+            if(state.equals(CalculatorState.OPERATOR)) {
+                rightValue = leftValue;
+            }
+
+            state = CalculatorState.LEFT;
+
+            if(operator == null) {
+                if(output.length() <= 0) {
+                    output.append(0);
+                }
+                leftValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
+                output.setLength(0);
+                updateEquation(true);
+                updateOutput();
                 return;
             }
 
-            if(!state.equals(CalculatorState.LEFT)) {
-                equation.append(output.toString());
+            BigDecimal result = doOperation(leftValue, rightValue, operator);
 
-                updateEquation();
+            output.setLength(0);
+            output.append(result.toString());
+            updateEquation(true);
+            updateOutput();
+        } else {
+            // TODO: Add Percentage and Sqrt
 
-                rightValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
-                binding.output.setText(String.valueOf(leftValue.add(rightValue)));
-            } else {
-                leftValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
-                binding.output.setText(String.valueOf(leftValue));
+            if(output.length() <= 0) {
+                output.append(0);
+            }
+            if(output.length() > 0 && output.charAt(output.length()-1) == '.') {
+                output.append(0);
             }
 
-
-        } else {
-
-            if(output.length() <= 0) output.append('0');
+            if(state.equals(CalculatorState.LEFT)) {
+                leftValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
+                state = CalculatorState.OPERATOR;
+                rightValue = null; // Could be NOT null from past operations
+            } else if (state.equals(CalculatorState.RIGHT)) {
+                rightValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
+                leftValue = doOperation(leftValue, rightValue, operator);
+                rightValue = null;
+                state = CalculatorState.RIGHT;
+            }
 
             operator = oper;
-
-            if(state.equals(CalculatorState.OPERATOR)) {
-                equation.deleteCharAt(equation.length()-1);
-            } else if(!swapState(CalculatorState.OPERATOR)) {
-                // WHY COULDN'T I SWAP!!?!??
-                Log.wtf("MainActivity", "Couldn't stop to OPERATOR state?!?");
-                return;
-            } else {
-                equation.append(output.toString());
-            }
-
-            equation.append(oper.toString());
-
-            updateEquation();
-
-            leftValue = BigDecimal.valueOf(Double.parseDouble(output.toString()));
-
+            output.setLength(0);
+            updateEquation(false);
         }
+
     }
+
+    private BigDecimal doOperation(BigDecimal leftValue, BigDecimal rightValue, CalculatorOperator operator) {
+        BigDecimal result;
+        switch(operator) {
+            case ADD:
+                result = leftValue.add(rightValue);
+                break;
+            case SUBTRACT:
+                result = leftValue.subtract(rightValue);
+                break;
+            case DIVIDE:
+                result = leftValue.divide(rightValue);
+                break;
+            case MULTIPLY:
+                result = leftValue.multiply(rightValue);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + operator);
+        }
+        return result;
+}
 
     private void clear() {
         clearEquation();
@@ -150,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
         rightValue = null;
     }
     private void clearEquation() {
-        equation.setLength(0);
         binding.equation.setText("");
     }
 
@@ -160,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Chech if swap should be allowed. If so, swap!
+    // Check if swap should be allowed. If so, swap!
     private boolean swapState(CalculatorState s) {
         state = s;
     return true;
