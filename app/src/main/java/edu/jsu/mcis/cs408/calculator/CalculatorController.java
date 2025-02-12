@@ -291,11 +291,11 @@ public class CalculatorController {
     }
 
     private void updateEquation(boolean b) {
-        String lv = model.getLeftValue() != null ? model.getLeftValue().toString() : "";
-        String rv = model.getRightValue() != null ? model.getRightValue().toString() : "";
-        String op = model.getOperator() != null ? model.getOperator().toString() : "";
-        String eq = b ? CalculatorOperator.EQUAL.toString() : "";
-        view.updateEquation(String.format("%s %s %s %s", lv, op, rv, eq));
+        String lv = model.getLeftValue() != null ? model.getLeftValue().toString() + " " : "";
+        String rv = model.getRightValue() != null ? model.getRightValue().toString() + " " : "";
+        String op = model.getOperator() != null ? model.getOperator().toString() + " " : "";
+        String eq = b ? CalculatorOperator.EQUAL + " " : "";
+        view.updateEquation(String.format("%s%s%s%s", lv, op, rv, eq));
     }
 
     private void clear() {
