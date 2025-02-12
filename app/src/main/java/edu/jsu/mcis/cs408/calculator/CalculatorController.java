@@ -1,5 +1,7 @@
 package edu.jsu.mcis.cs408.calculator;
 
+import android.util.Log;
+
 import java.math.BigDecimal;
 
 public class CalculatorController {
@@ -287,6 +289,7 @@ public class CalculatorController {
     }
 
     private BigDecimal parseOutputToBigDecimal() {
+        if(model.getOutput().length() <= 0) return new BigDecimal(0);
         return new BigDecimal(model.getOutput().toString());
     }
 
