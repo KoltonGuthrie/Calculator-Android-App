@@ -1,7 +1,5 @@
 package edu.jsu.mcis.cs408.calculator;
 
-import android.util.Log;
-
 import java.math.BigDecimal;
 
 public class CalculatorController {
