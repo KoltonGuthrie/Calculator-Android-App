@@ -7,6 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/operatorOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="152dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stateOutput"
+        app:layout_constraintEnd_toStartOf="@+id/rightOutput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/leftOutput"
+        app:layout_constraintStart_toStartOf="@+id/guideWest"
+        app:layout_constraintTop_toTopOf="@+id/stateOutput" />
+
+    <TextView
+        android:id="@+id/rightOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stateOutput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideEast"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/operatorOutput"
+        app:layout_constraintTop_toTopOf="@+id/stateOutput" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideNorth"
         android:layout_width="wrap_content"
@@ -44,7 +71,6 @@
         android:text="@string/input_placeholder"
         android:textSize="48dp"
         app:layout_constraintEnd_toStartOf="@+id/guideEast"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideWest"
         app:layout_constraintTop_toBottomOf="@+id/equation" />
 
@@ -57,7 +83,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideEast"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideWest"
-        app:layout_constraintTop_toTopOf="@+id/guideNorth" />
+        app:layout_constraintTop_toBottomOf="@+id/stateOutput" />
 
     <Button
         android:id="@+id/btn8"
@@ -381,5 +407,30 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn1"
         app:layout_constraintTop_toTopOf="@+id/btn1" />
+
+    <TextView
+        android:id="@+id/stateOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="STATE"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/leftOutput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideNorth" />
+
+    <TextView
+        android:id="@+id/leftOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="60dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/stateOutput"
+        app:layout_constraintEnd_toStartOf="@+id/operatorOutput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/stateOutput"
+        app:layout_constraintStart_toStartOf="@+id/guideWest"
+        app:layout_constraintTop_toTopOf="@+id/stateOutput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
