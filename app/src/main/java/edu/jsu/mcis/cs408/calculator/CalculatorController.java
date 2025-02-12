@@ -177,8 +177,17 @@ public class CalculatorController {
             model.getOutput().append(0);
         }
 
+        BigDecimal value;
+
+        if(model.getState().equals(CalculatorState.OPERATOR) && model.getOutput().length() <= 0) {
+            setRightValue(model.getLeftValue());
+            value = model.getRightValue();
+        } else {
+            value = parseOutputToBigDecimal();
+        }
+
         try {
-            BigDecimal result = CalculatorArithmetic.doOperation(parseOutputToBigDecimal(), null, CalculatorOperator.SQUARE_ROOT);
+            BigDecimal result = CalculatorArithmetic.doOperation(value, null, CalculatorOperator.SQUARE_ROOT);
 
             if (model.getState().equals(CalculatorState.LEFT)) {
                 setLeftValue(result);
@@ -186,6 +195,7 @@ public class CalculatorController {
                 setRightValue(result);
             }
 
+            swapState(CalculatorState.RIGHT);
             model.getOutput().setLength(0);
             model.getOutput().append(result.toString());
             updateEquation(false);
