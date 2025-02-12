@@ -313,10 +313,9 @@ public class CalculatorController {
         view.updateOutput("0");
     }
 
-    private boolean swapState(CalculatorState s) {
+    private void swapState(CalculatorState s) {
         model.setState(s);
         view.updateStateOutput(model.getState());
-        return true;
     }
 
     private void setRightValue(BigDecimal bd) {
