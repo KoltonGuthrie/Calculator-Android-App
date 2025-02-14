@@ -193,7 +193,6 @@ public class CalculatorController {
                 setRightValue(result);
             }
 
-            swapState(CalculatorState.RIGHT);
             model.getOutput().setLength(0);
             model.getOutput().append(result.toString());
             updateEquation(false);
