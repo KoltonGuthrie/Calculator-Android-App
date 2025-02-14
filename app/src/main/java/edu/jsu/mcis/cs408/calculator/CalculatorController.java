@@ -46,7 +46,7 @@ public class CalculatorController {
             case "btn9":
                 submitValue("9");
                 break;
-            case "btnPlusSub":
+            case "btnSwap":
                 submitOperator(CalculatorOperator.SWAP_SIGN);
                 break;
             case "btnDec":
@@ -179,9 +179,10 @@ public class CalculatorController {
 
         setRightValue(result);
         model.getOutput().setLength(0);
-        model.getOutput().append(result.toString());
-        updateEquation(false);
+        model.getOutput().append(result.toPlainString());
         view.updateOutput(model.getOutput().toString());
+        model.getOutput().setLength(0);
+        updateEquation(false);
         swapState(CalculatorState.RIGHT);
     }
 
@@ -209,7 +210,7 @@ public class CalculatorController {
             }
 
             model.getOutput().setLength(0);
-            model.getOutput().append(result.toString());
+            model.getOutput().append(result.toPlainString());
             updateEquation(false);
             view.updateOutput(model.getOutput().toString());
         } catch(ArithmeticException err) {
@@ -273,7 +274,7 @@ public class CalculatorController {
         try {
             BigDecimal result = CalculatorArithmetic.doOperation(model.getLeftValue(), model.getRightValue(), model.getOperator());
             model.getOutput().setLength(0);
-            model.getOutput().append(result.toString());
+            model.getOutput().append(result.toPlainString());
             updateEquation(true);
             view.updateOutput(model.getOutput().toString());
 
@@ -305,7 +306,7 @@ public class CalculatorController {
             setLeftValue(value);
             swapState(CalculatorState.OPERATOR);
             setRightValue(null);
-            view.updateOutput(value.toString());
+            view.updateOutput(value.toPlainString());
             view.updateStateOutput(model.getState());
         }
 
