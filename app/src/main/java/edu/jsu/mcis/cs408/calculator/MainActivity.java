@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     CalculatorController controller;
-    private final boolean DEBUG_MODE = true;
+    private final boolean DEBUG_MODE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
