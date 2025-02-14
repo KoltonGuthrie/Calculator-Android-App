@@ -7,13 +7,13 @@ public class CalculatorArithmetic {
     public static BigDecimal doOperation(BigDecimal left, BigDecimal right, CalculatorOperator operator) {
         switch (operator) {
             case ADD:
-                return left.add(right);
+                return left.add(right).stripTrailingZeros();
             case SUBTRACT:
-                return left.subtract(right);
+                return left.subtract(right).stripTrailingZeros();
             case MULTIPLY:
-                return left.multiply(right);
+                return left.multiply(right).stripTrailingZeros();
             case SQUARE_ROOT:
-                return BigDecimalUtils.sqrt(left, 2);
+                return BigDecimalUtils.sqrt(left, 2).stripTrailingZeros();
             case DIVIDE:
                 if (right.compareTo(BigDecimal.ZERO) == 0) {
                     throw new ArithmeticException("Division by zero");
