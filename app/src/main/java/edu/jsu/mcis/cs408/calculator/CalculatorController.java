@@ -142,6 +142,7 @@ public class CalculatorController {
     }
 
     private void handlePercentage() {
+        BigDecimal oldRightValue = null;
 
 
         if (model.getOutput().length() > 0 && model.getOutput().charAt(model.getOutput().length() - 1) == '.') {
@@ -162,6 +163,8 @@ public class CalculatorController {
         }
 
         if(model.getState().equals(CalculatorState.LEFT) && model.getLeftValue() != null && model.getRightValue() != null) {
+            oldRightValue = model.getRightValue();
+            //setLeftValue(model.getRightValue());
             setLeftValue(parseOutputToBigDecimal());
             setRightValue(parseOutputToBigDecimal());
         }
@@ -177,7 +180,13 @@ public class CalculatorController {
             result = model.getLeftValue().multiply(CalculatorArithmetic.doOperation(model.getRightValue(), new BigDecimal(100), CalculatorOperator.DIVIDE));
         }
 
-        setRightValue(result);
+        if(oldRightValue != null) {
+            setRightValue(oldRightValue);
+            setLeftValue(result);
+        } else {
+            setRightValue(result);
+        }
+
         model.getOutput().setLength(0);
         model.getOutput().append(result.toPlainString());
         view.updateOutput(model.getOutput().toString());
