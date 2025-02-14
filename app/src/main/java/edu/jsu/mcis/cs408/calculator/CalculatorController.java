@@ -89,6 +89,10 @@ public class CalculatorController {
             return;
         }
 
+        if(s.equals(".") && model.getOutput().indexOf(".") != -1) {
+            return;
+        }
+
         if(model.getState().equals(CalculatorState.RIGHT) && model.getRightValue() != null) {
             setRightValue(null);
         }
