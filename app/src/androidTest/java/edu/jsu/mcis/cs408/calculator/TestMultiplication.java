@@ -6,6 +6,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
+import static edu.jsu.mcis.cs408.calculator.TestUtils.parseEquation;
+
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -14,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 @RunWith(AndroidJUnit4.class)
 public class TestMultiplication {
@@ -30,10 +33,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication1() {
-        onView(withTagValue(is("btn5"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btn3"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
+        Arrays.stream(parseEquation("5x3=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -43,12 +43,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication2() {
-        onView(withTagValue(is("btn4"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btn2"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btn8"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
+        Arrays.stream(parseEquation("4x2x8=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -58,8 +53,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication3() {
-        onView(withTagValue(is("btn6"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
+        Arrays.stream(parseEquation("6x")).forEach(i -> i.perform(click()));
         for(int i = 0; i < 5; i++) {
             onView(withTagValue(is("btnEqual"))).perform(click());
         }
@@ -72,11 +66,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication4() {
-        onView(withTagValue(is("btn8"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btn2"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
+        Arrays.stream(parseEquation("8xx2=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -86,10 +76,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication5() {
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btn8"))).perform(click());
-        onView(withTagValue(is("btn8"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
+        Arrays.stream(parseEquation("x88=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -99,11 +86,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication6() {
-        onView(withTagValue(is("btn8"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
-        onView(withTagValue(is("btn9"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
+        Arrays.stream(parseEquation("8x=9=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -113,12 +96,7 @@ public class TestMultiplication {
 
     @Test
     public void testButtonPress_Multiplication7() {
-        onView(withTagValue(is("btn8"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
-        onView(withTagValue(is("btnMult"))).perform(click());
-        onView(withTagValue(is("btn9"))).perform(click());
-        onView(withTagValue(is("btnEqual"))).perform(click());
+        Arrays.stream(parseEquation("8x=x9=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
