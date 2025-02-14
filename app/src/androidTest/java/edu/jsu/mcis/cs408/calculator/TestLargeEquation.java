@@ -73,7 +73,6 @@ public class TestLargeEquation {
 
     @Test
     public void testButtonPress_LargeEquation5() {
-        // √  ±
         Arrays.stream(parseEquation("49√±x3±+44.2x7=/4±-8%9=±=")).forEach(i -> i.perform(click()));
 
         scenario.onActivity(activity -> {
