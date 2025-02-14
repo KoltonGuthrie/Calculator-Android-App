@@ -220,10 +220,16 @@ public class CalculatorController {
     }
 
     private void handleSwapSign() {
-        if (model.getOutput().length() <= 0 || model.getOutput().charAt(0) == '0') {
+        if (model.getOutput().length() > 0 && model.getOutput().charAt(0) == '0') {
             return;
         }
-        if (model.getOutput().charAt(0) == '-') {
+        if(model.getOutput().length() <= 0 && model.getLeftValue() != null) {
+            model.getOutput().append("-").append(model.getLeftValue());
+            swapState(CalculatorState.RIGHT);
+        } else if(model.getOutput().length() <= 0) {
+            return;
+        }
+        else if (model.getOutput().length() > 0 && model.getOutput().charAt(0) == '-') {
             model.getOutput().deleteCharAt(0);
         } else {
             model.getOutput().insert(0, '-');
