@@ -1,5 +1,7 @@
 package edu.jsu.mcis.cs408.calculator;
 
+import android.util.Log;
+
 import java.math.BigDecimal;
 
 public class CalculatorController {
@@ -87,17 +89,21 @@ public class CalculatorController {
             return;
         }
 
-        if (model.getState().equals(CalculatorState.LEFT) && model.getLeftValue() != null) {
-            clear();
-        }
-
         if(model.getState().equals(CalculatorState.RIGHT) && model.getRightValue() != null) {
             setRightValue(null);
         }
 
+        if (model.getState().equals(CalculatorState.LEFT) && model.getLeftValue() != null) {
+            model.setLeftValue(null);
+            model.getOutput().setLength(0);
+            view.updateOutput("0");
+            view.updateEquation("");
+        } else {
+            updateEquation(false);
+        }
+
         model.getOutput().append(s);
 
-        updateEquation(false);
         view.updateOutput(model.getOutput().toString());
     }
 
@@ -228,6 +234,10 @@ public class CalculatorController {
             }
         }
 
+        if(model.getState().equals(CalculatorState.LEFT) && model.getLeftValue() == null && model.getRightValue() != null) {
+            setLeftValue(parseOutputToBigDecimal());
+        }
+
         if (model.getState().equals(CalculatorState.RIGHT) && model.getRightValue() == null ) {
             if (model.getOutput().length() > 0) {
                 setRightValue(parseOutputToBigDecimal());
@@ -341,5 +351,9 @@ public class CalculatorController {
     private void setOperator(CalculatorOperator op) {
         view.updateOperatorOutput(op);
         model.setOperator(op);
+    }
+
+    protected CalculatorModel getModel() {
+        return model;
     }
 }
