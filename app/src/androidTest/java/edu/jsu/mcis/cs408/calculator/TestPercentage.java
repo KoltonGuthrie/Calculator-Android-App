@@ -150,4 +150,16 @@ public class TestPercentage {
         });
     }
 
+    @Test
+    public void testButtonPress_Percentage11() {
+        Arrays.stream(parseEquation("2-123=%=")).forEach(i -> i.perform(click()));
+
+        scenario.onActivity(activity -> {
+            BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
+            assertEquals(new BigDecimal("23.41"), bd);
+        });
+    }
+
+
+
 }
