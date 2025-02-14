@@ -259,18 +259,18 @@
         android:text="@string/button_one"
         android:textSize="24dp"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnPlusSub"
+        app:layout_constraintBottom_toTopOf="@+id/btnSwap"
         app:layout_constraintEnd_toStartOf="@+id/btn2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideWest"
         app:layout_constraintTop_toBottomOf="@+id/btn4" />
 
     <Button
-        android:id="@+id/btnPlusSub"
+        android:id="@+id/btnSwap"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8sp"
-        android:tag="btnPlusSub"
+        android:tag="btnSwap"
         android:text="@string/button_plus_subtract"
         android:textSize="24dp"
         app:cornerRadius="0dp"
@@ -338,11 +338,11 @@
         android:text="@string/button_zero"
         android:textSize="24dp"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnPlusSub"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
         app:layout_constraintEnd_toStartOf="@+id/btnDec"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnPlusSub"
-        app:layout_constraintTop_toTopOf="@+id/btnPlusSub" />
+        app:layout_constraintStart_toEndOf="@+id/btnSwap"
+        app:layout_constraintTop_toTopOf="@+id/btnSwap" />
 
     <Button
         android:id="@+id/btn3"
