@@ -5,7 +5,6 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-
 import static edu.jsu.mcis.cs408.calculator.TestUtils.parseEquation;
 
 import androidx.test.core.app.ActivityScenario;
