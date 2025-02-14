@@ -233,7 +233,7 @@ public class CalculatorController {
 
     private void handleEquals() {
         if (model.getOutput().length() > 0 && model.getOutput().charAt(model.getOutput().length() - 1) == '.') {
-            model.getOutput().append(0);
+            model.getOutput().deleteCharAt(model.getOutput().length() - 1); // Remove trailing '.'
         }
 
         if (model.getRightValue() != null && model.getLeftValue() != null && model.getState().equals(CalculatorState.LEFT)) {
