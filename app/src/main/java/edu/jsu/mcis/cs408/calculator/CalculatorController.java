@@ -170,7 +170,12 @@ public class CalculatorController {
             setRightValue(parseOutputToBigDecimal());
         }
 
-        BigDecimal result = model.getLeftValue().multiply(CalculatorArithmetic.doOperation(model.getRightValue(), new BigDecimal(100), CalculatorOperator.DIVIDE));
+        BigDecimal result;
+        if(model.getOperator().equals(CalculatorOperator.MULTIPLY) || model.getOperator().equals(CalculatorOperator.DIVIDE)) {
+            result = CalculatorArithmetic.doOperation(model.getRightValue(), new BigDecimal(100), CalculatorOperator.DIVIDE);
+        } else {
+            result = model.getLeftValue().multiply(CalculatorArithmetic.doOperation(model.getRightValue(), new BigDecimal(100), CalculatorOperator.DIVIDE));
+        }
 
         setRightValue(result);
         model.getOutput().setLength(0);
