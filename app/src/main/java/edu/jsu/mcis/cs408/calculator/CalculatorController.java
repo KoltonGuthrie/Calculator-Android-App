@@ -147,7 +147,7 @@ public class CalculatorController {
             model.getOutput().append(0);
         }
 
-        if(model.getState().equals(CalculatorState.LEFT) && model.getLeftValue() == null && model.getRightValue() == null) {
+        if(model.getState().equals(CalculatorState.LEFT) && model.getRightValue() == null) {
             setLeftValue(new BigDecimal(0));
             model.getOutput().setLength(0);
             model.getOutput().append(0);
