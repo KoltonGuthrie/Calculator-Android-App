@@ -160,6 +160,16 @@ public class TestPercentage {
         });
     }
 
+    @Test
+    public void testButtonPress_Percentage12() {
+        for (ViewInteraction i : parseEquation("%%3=")) i.perform(click());
+
+        scenario.onActivity(activity -> {
+            BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
+            assertEquals(new BigDecimal("3"), bd);
+        });
+    }
+
 
 
 }
