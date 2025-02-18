@@ -29,7 +29,7 @@ public class TestSwapSign {
     }
 
     @Test
-    public void testButtonPress_Addition1() {
+    public void testButtonPress_SwapSign1() {
         for (ViewInteraction i : parseEquation("5±3=")) i.perform(click());
 
         scenario.onActivity(activity -> {
@@ -39,7 +39,7 @@ public class TestSwapSign {
     }
 
     @Test
-    public void testButtonPress_Addition2() {
+    public void testButtonPress_SwapSign2() {
         for (ViewInteraction i : parseEquation("4+2±8=")) i.perform(click());
 
         scenario.onActivity(activity -> {
@@ -49,7 +49,7 @@ public class TestSwapSign {
     }
 
     @Test
-    public void testButtonPress_Addition3() {
+    public void testButtonPress_SwapSign3() {
         for (ViewInteraction i : parseEquation("6+±=")) i.perform(click());
 
         scenario.onActivity(activity -> {
@@ -59,7 +59,7 @@ public class TestSwapSign {
     }
 
     @Test
-    public void testButtonPress_Addition4() {
+    public void testButtonPress_SwapSign4() {
         for (ViewInteraction i : parseEquation("8±±1=")) i.perform(click());
 
         scenario.onActivity(activity -> {
@@ -69,7 +69,7 @@ public class TestSwapSign {
     }
 
     @Test
-    public void testButtonPress_Addition5() {
+    public void testButtonPress_SwapSign5() {
         for (ViewInteraction i : parseEquation("±88x5±=")) i.perform(click());
 
         scenario.onActivity(activity -> {
@@ -79,7 +79,7 @@ public class TestSwapSign {
     }
 
     @Test
-    public void testButtonPress_Addition6() {
+    public void testButtonPress_SwapSign6() {
         for (ViewInteraction i : parseEquation("2x5±=±=")) i.perform(click());
 
         scenario.onActivity(activity -> {
