@@ -78,4 +78,14 @@ public class TestLargeEquation {
         });
     }
 
+    @Test
+    public void testButtonPress_LargeEquation6() {
+        for (ViewInteraction i : parseEquation("=6x23-5%=--3+±4±=+81√x4=")) i.perform(click());
+
+        scenario.onActivity(activity -> {
+            BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
+            assertEquals(new BigDecimal("532.4"), bd);
+        });
+    }
+
 }
