@@ -13,7 +13,7 @@ import edu.jsu.mcis.cs408.calculator.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    CalculatorController controller;
+    protected CalculatorController controller;
     private final boolean DEBUG_MODE = false;
 
     @Override
