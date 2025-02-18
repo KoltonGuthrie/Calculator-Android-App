@@ -231,8 +231,13 @@ public class CalculatorController {
             return;
         }
         if(model.getOutput().length() <= 0 && model.getLeftValue() != null) {
-            model.getOutput().append("-").append(model.getLeftValue());
-            swapState(CalculatorState.RIGHT);
+            if(model.getLeftValue().toString().charAt(0) == '-') {
+                model.getOutput().setLength(0);
+                model.getOutput().append(model.getLeftValue().toString().substring(1));
+            } else {
+                model.getOutput().append("-").append(model.getLeftValue());
+            }
+            if(!model.getState().equals(CalculatorState.OPERATOR)) swapState(CalculatorState.RIGHT);
         } else if(model.getOutput().length() <= 0) {
             return;
         }
@@ -269,7 +274,11 @@ public class CalculatorController {
             }
         }
         if (model.getState().equals(CalculatorState.OPERATOR)) {
-            setRightValue(model.getLeftValue());
+            if(model.getOutput().length() <= 0) {
+                setRightValue(model.getLeftValue());
+            } else {
+                setRightValue(parseOutputToBigDecimal());
+            }
         }
 
         swapState(CalculatorState.LEFT);
