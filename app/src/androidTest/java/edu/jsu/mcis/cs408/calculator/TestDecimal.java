@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static edu.jsu.mcis.cs408.calculator.TestUtils.parseEquation;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class TestDecimal {
 
     @Test
     public void testButtonPress_Decimal1() {
-        Arrays.stream(parseEquation("5.3=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("5.3=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -42,7 +43,7 @@ public class TestDecimal {
 
     @Test
     public void testButtonPress_Decimal2() {
-        Arrays.stream(parseEquation("4.2.8=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("4.2.8=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -52,7 +53,7 @@ public class TestDecimal {
 
     @Test
     public void testButtonPress_Decimal3() {
-        Arrays.stream(parseEquation("6.")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("6.")) i.perform(click());
         for(int i = 0; i < 5; i++) {
             onView(withTagValue(is("btnEqual"))).perform(click());
         }
@@ -65,7 +66,7 @@ public class TestDecimal {
 
     @Test
     public void testButtonPress_Decimal4() {
-        Arrays.stream(parseEquation("8..1=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("8..1=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -75,7 +76,7 @@ public class TestDecimal {
 
     @Test
     public void testButtonPress_Decimal5() {
-        Arrays.stream(parseEquation(".88=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation(".88=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);

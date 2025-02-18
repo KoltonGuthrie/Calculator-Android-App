@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static edu.jsu.mcis.cs408.calculator.TestUtils.parseEquation;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class TestClear {
 
     @Test
     public void testButtonPress_Clear1() {
-        Arrays.stream(parseEquation("5C")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("5C")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -42,7 +43,7 @@ public class TestClear {
 
     @Test
     public void testButtonPress_Clear2() {
-        Arrays.stream(parseEquation("4+=C")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("4+=C")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -64,7 +65,7 @@ public class TestClear {
 
     @Test
     public void testButtonPress_Clear4() {
-        Arrays.stream(parseEquation("8+=C5+4=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("8+=C5+4=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);

@@ -4,6 +4,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static org.hamcrest.Matchers.is;
 
+import android.util.Log;
+
 import androidx.test.espresso.ViewInteraction;
 
 import java.math.BigDecimal;
@@ -20,7 +22,7 @@ public class TestUtils {
         give the ViewInteraction in the order they are provided.
      */
     public static ViewInteraction[] parseEquation(String s) {
-        String[] arr = s.replaceAll("\\s", "").toLowerCase().split("");
+        String[] arr = s.trim().replaceAll("\\s", "").toLowerCase().split("(?!^)");
 
         ViewInteraction[] result = new ViewInteraction[arr.length];
 

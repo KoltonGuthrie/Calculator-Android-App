@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static edu.jsu.mcis.cs408.calculator.TestUtils.parseEquation;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class TestSwapSign {
 
     @Test
     public void testButtonPress_Addition1() {
-        Arrays.stream(parseEquation("5±3=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("5±3=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -39,7 +40,7 @@ public class TestSwapSign {
 
     @Test
     public void testButtonPress_Addition2() {
-        Arrays.stream(parseEquation("4+2±8=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("4+2±8=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -49,7 +50,7 @@ public class TestSwapSign {
 
     @Test
     public void testButtonPress_Addition3() {
-        Arrays.stream(parseEquation("6+±=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("6+±=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -59,7 +60,7 @@ public class TestSwapSign {
 
     @Test
     public void testButtonPress_Addition4() {
-        Arrays.stream(parseEquation("8±±1=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("8±±1=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -69,7 +70,7 @@ public class TestSwapSign {
 
     @Test
     public void testButtonPress_Addition5() {
-        Arrays.stream(parseEquation("±88x5±=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("±88x5±=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -79,7 +80,7 @@ public class TestSwapSign {
 
     @Test
     public void testButtonPress_Addition6() {
-        Arrays.stream(parseEquation("2x5±=±=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("2x5±=±=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);

@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static edu.jsu.mcis.cs408.calculator.TestUtils.parseEquation;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage1() {
-        Arrays.stream(parseEquation("5%3=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("5%3=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -42,7 +43,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage2() {
-        Arrays.stream(parseEquation("4+2%8=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("4+2%8=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -52,7 +53,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage3() {
-        Arrays.stream(parseEquation("6+%")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("6+%")) i.perform(click());
 
         for(int i = 0; i < 5; i++) {
             onView(withTagValue(is("btnEqual"))).perform(click());
@@ -66,7 +67,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage4() {
-        Arrays.stream(parseEquation("100x6%+1=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("100x6%+1=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -76,7 +77,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage5() {
-        Arrays.stream(parseEquation("100x6%=+1=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("100x6%=+1=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -86,7 +87,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage6() {
-        Arrays.stream(parseEquation("425+8%=+8=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("425+8%=+8=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -96,7 +97,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage7() {
-        Arrays.stream(parseEquation("100+5")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("100+5")) i.perform(click());
 
         for(int i = 0; i < 5; i++) {
             onView(withTagValue(is("btnPrc"))).perform(click());
@@ -111,7 +112,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage8() {
-        Arrays.stream(parseEquation("500+5")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("500+5")) i.perform(click());
 
         for(int i = 0; i < 5; i++) {
             onView(withTagValue(is("btnPrc"))).perform(click());
@@ -126,7 +127,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage9() {
-        Arrays.stream(parseEquation("5%=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("5%=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
@@ -136,7 +137,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage10() {
-        Arrays.stream(parseEquation("120+")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("120+")) i.perform(click());
 
         for(int i = 0; i < 5; i++) {
             onView(withTagValue(is("btnPrc"))).perform(click());
@@ -151,7 +152,7 @@ public class TestPercentage {
 
     @Test
     public void testButtonPress_Percentage11() {
-        Arrays.stream(parseEquation("2-123=%=")).forEach(i -> i.perform(click()));
+        for (ViewInteraction i : parseEquation("2-123=%=")) i.perform(click());
 
         scenario.onActivity(activity -> {
             BigDecimal bd = TestUtils.parseOutputToBigDecimal(controller);
