@@ -28,7 +28,7 @@ public class TestSquareRoot {
     public void setup() {
         scenario = ActivityScenario.launch(MainActivity.class);
 
-        scenario.onActivity(activity -> controller = activity.controller);
+        scenario.onActivity(activity -> controller = activity.getController());
     }
 
     @Test

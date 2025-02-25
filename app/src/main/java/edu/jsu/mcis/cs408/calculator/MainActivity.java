@@ -13,7 +13,7 @@ import edu.jsu.mcis.cs408.calculator.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    protected CalculatorController controller;
+    private CalculatorController controller;
     private final boolean DEBUG_MODE = false;
 
     @Override
@@ -78,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
             String tag = view.getTag().toString();
             controller.handleInput(tag);
         }
+    }
+
+    public CalculatorController getController() {
+        return controller;
     }
 }
